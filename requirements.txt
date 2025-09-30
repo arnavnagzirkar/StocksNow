@@ -1,0 +1,13 @@
+flask
+requests
+yfinance
+transformers
+torch
+pandas
+numpy
+python-dotenv
+vaderSentiment
+scikit-learn
+xgboost
+pydantic
+plotly
