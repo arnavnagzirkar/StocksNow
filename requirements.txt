@@ -11,3 +11,4 @@ scikit-learn
 xgboost
 pydantic
 plotly
+pyarrow>=15

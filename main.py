@@ -11,12 +11,33 @@ from dotenv import load_dotenv
 
 from core.features import ta_features
 from core.backtest import run_backtest
+from core.research.report import report_bp
+
+
+# NEW: research blueprint (walk-forward ML + backtest)
+from core.research.api import research_bp
 
 load_dotenv()
 
 app = Flask(__name__, static_folder="static", template_folder="templates")
 # Accept routes with or without trailing slashes (prevents 308 redirects)
 app.url_map.strict_slashes = False
+
+# Register research API endpoints at /api/run
+app.register_blueprint(research_bp)
+app.register_blueprint(report_bp)
+
+@app.before_request
+def log_routes():
+    print("\n=== REGISTERED ROUTES ===")
+    for rule in app.url_map.iter_rules():
+        print(f"{rule.methods} {rule.rule}")
+    print("=========================\n")
+    
+# After: app.register_blueprint(research_bp)
+@app.route("/test-portfolio")
+def test_portfolio():
+    return jsonify({"message": "Blueprint routes are working!"})
 
 # ---------------- Sentiment (transformers -> VADER fallback) ----------------
 USE_VADER = False
@@ -278,6 +299,18 @@ def api_backtest():
         "buy_hold": [float(x) for x in bt["buy_hold"]],
     }
     return jsonify({"metrics": bt["metrics"], "series": series})
+
+@app.route("/portfolio")
+def portfolio_page():
+    return render_template("portfolio.html")
+
+@app.route("/research")
+def research_page():
+    return render_template("research.html")
+
+@app.route("/healthz")
+def healthz():
+    return {"ok": True}, 200
 
 
 if __name__ == "__main__":
