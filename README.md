@@ -1,4 +1,4 @@
-# StocksNow - Quantitative Research Platform
+# QuantSight - Quantitative Research Platform
 
 A comprehensive quantitative research platform for stock analysis, featuring walk-forward machine learning models, portfolio backtesting, factor analysis, and sentiment analysis.
 
@@ -73,7 +73,7 @@ Visit `http://localhost:5000` to see the React frontend.
 ## 📁 Project Structure
 
 ```
-StocksNow/
+QuantSight/
 ├── main.py                    # Flask app with route definitions
 ├── core/
 │   ├── adapter_api.py         # Adapter routes for React frontend

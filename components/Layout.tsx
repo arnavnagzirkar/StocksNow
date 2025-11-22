@@ -36,7 +36,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       {/* Sidebar */}
       <aside className="fixed inset-y-0 left-0 z-50 w-64 bg-card border-r border-border">
         <div className="flex h-16 items-center border-b border-border px-6">
-          <h1 className="text-xl font-bold">StocksNow</h1>
+          <h1 className="text-xl font-bold">QuantSight</h1>
         </div>
         <nav className="space-y-1 px-3 py-4">
           {navigation.map((item) => {

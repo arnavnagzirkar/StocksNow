@@ -1,4 +1,4 @@
-// API Service for StocksNow Research Lab
+// API Service for QuantSight Research Lab
 // Connect to Flask backend - maps React frontend to existing Flask endpoints
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';

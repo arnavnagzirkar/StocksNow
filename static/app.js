@@ -687,7 +687,7 @@ function formatCell(v){ if(v==null) return '—'; const n=Number(v); if(!Number.
 
 // ===== Form Persistence =====
 (function persistForms(){
-  const PFX='sn_';
+  const PFX='qs_';
   function save(id){ const el=document.getElementById(id); if(!el) return; localStorage.setItem(PFX+id, el.value); }
   function load(id){ const el=document.getElementById(id); const val=localStorage.getItem(PFX+id); if(el && val!=null) el.value=val; }
   const ids=[
@@ -701,8 +701,8 @@ function formatCell(v){ if(v==null) return '—'; const n=Number(v); if(!Number.
 
 // ===== Save/Load/Clear Configurations =====
 (function configProfiles(){
-  const PFX='sn_';
-  const KEY='sn_profiles';
+  const PFX='qs_';
+  const KEY='qs_profiles';
   function gather(){
     return {
       predictor:{ ticker:val('predict-ticker'), source:val('predict-source'), horizon:val('predict-horizon') },

@@ -1,4 +1,4 @@
-// Utility functions for formatting data in the StocksNow Research Lab
+// Utility functions for formatting data in the QuantSight Research Lab
 
 /**
  * Format a number as currency

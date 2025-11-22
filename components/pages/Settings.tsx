@@ -140,7 +140,7 @@ export function Settings() {
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="username">Username</Label>
-                <Input id="username" defaultValue="researcher@stocksnow.com" />
+                <Input id="username" defaultValue="researcher@quantsight.com" />
               </div>
 
               <div className="space-y-2">
