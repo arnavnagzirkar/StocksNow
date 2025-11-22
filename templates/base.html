@@ -9,6 +9,15 @@
 </head>
 <body>
 
+<!-- Global loading & toast containers -->
+<div id="global-spinner" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="z-index:1050; background:rgba(15,23,42,0.45); display:none;">
+  <div class="text-center">
+    <div class="spinner-border text-light mb-3" role="status"></div>
+    <div class="fw-semibold text-light">Loading…</div>
+  </div>
+</div>
+<div id="toast-container" class="position-fixed bottom-0 end-0 p-3" style="z-index:1060;"></div>
+
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark shadow-sm app-navbar">
   <div class="container-xl">
@@ -23,7 +32,11 @@
         <li class="nav-item"><a class="nav-link {% if request.path == url_for('sentiment_page') %}active{% endif %}" href="{{ url_for('sentiment_page') }}">News Sentiment</a></li>
         <li class="nav-item"><a class="nav-link {% if request.path == url_for('predictor_page') %}active{% endif %}" href="{{ url_for('predictor_page') }}">Predictor</a></li>
         <li class="nav-item"><a class="nav-link {% if request.path == url_for('research_page') %}active{% endif %}" href="{{ url_for('research_page') }}">Research</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.path == url_for('experiment_page') %}active{% endif %}" href="{{ url_for('experiment_page') }}">Experiment</a></li>
         <li class="nav-item"><a class="nav-link {% if request.path == url_for('backtest_page') %}active{% endif %}" href="{{ url_for('backtest_page') }}">Backtest</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" id="nav-save-config">Save Config</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" id="nav-load-config">Load Config</a></li>
+        <li class="nav-item"><a class="nav-link text-danger" href="#" id="nav-clear-configs">Clear Forms</a></li>
         <li class="nav-item"><a class="nav-link" target="_blank" href="https://github.com/arnavnagzirkar/StocksNow">GitHub</a></li>
       </ul>
     </div>

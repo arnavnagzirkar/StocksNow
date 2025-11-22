@@ -15,8 +15,21 @@
   <h2 class="h4 mb-3">Get Probability</h2>
 
   <form id="predict-form" class="row g-2" onsubmit="return false;">
-    <div class="col-sm-4">
+    <div class="col-sm-3">
       <input id="predict-ticker" class="form-control" placeholder="TSLA, AAPL, NVDA..." />
+    </div>
+    <div class="col-sm-3">
+      <select id="predict-source" class="form-select">
+        <option value="basic" selected>Basic (Momentum)</option>
+        <option value="research">Research (Walk-Forward XGB)</option>
+      </select>
+    </div>
+    <div class="col-sm-3">
+      <select id="predict-horizon" class="form-select">
+        <option value="1d" selected>1d horizon</option>
+        <option value="5d">5d horizon</option>
+        <option value="20d">20d horizon</option>
+      </select>
     </div>
     <div class="col-sm-auto">
       <button class="btn-elev" type="submit">Get Probability</button>
@@ -32,7 +45,7 @@
       <div class="col-sm-4">
         <div class="soft-card card h-100">
           <div class="card-body">
-            <div class="text-muted small">Probability Up (next day)</div>
+            <div class="text-muted small">Probability Up (<span id="predict-hz-label">1d</span>)</div>
             <div class="fs-3 fw-semibold" id="predict-prob">—</div>
           </div>
         </div>

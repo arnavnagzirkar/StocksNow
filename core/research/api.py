@@ -117,7 +117,9 @@ def _frame_to_jsonable(df: pd.DataFrame, n_tail: int | None = None) -> dict:
             out[day][str(col)] = None if pd.isna(v) else float(v)
     return out
 
-@research_bp.route("/api/v1/predict", methods=["GET"])
+# Renamed to avoid collision with base app's /api/v1/predict.
+# Frontend should use /api/research/predict for walk-forward model probabilities.
+@research_bp.route("/api/research/predict", methods=["GET"])
 def predict_endpoint():
     ticker  = (request.args.get("ticker") or "AAPL").upper()
     start   = request.args.get("start") or "2015-01-01"

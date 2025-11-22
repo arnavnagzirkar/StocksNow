@@ -16,6 +16,7 @@ from core.research.report import report_bp
 
 # NEW: research blueprint (walk-forward ML + backtest)
 from core.research.api import research_bp
+from core.adapter_api import adapter_bp
 
 load_dotenv()
 
@@ -26,6 +27,7 @@ app.url_map.strict_slashes = False
 # Register research API endpoints at /api/run
 app.register_blueprint(research_bp)
 app.register_blueprint(report_bp)
+app.register_blueprint(adapter_bp)  # React frontend adapter
 
 @app.before_request
 def log_routes():
@@ -39,15 +41,20 @@ def log_routes():
 def test_portfolio():
     return jsonify({"message": "Blueprint routes are working!"})
 
-# ---------------- Sentiment (transformers -> VADER fallback) ----------------
-USE_VADER = False
-try:
-    from transformers import pipeline
-    sentiment_pipe = pipeline("sentiment-analysis")
-except Exception:
-    from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-    vader = SentimentIntensityAnalyzer()
-    USE_VADER = True
+# ---------------- Sentiment (use VADER for faster startup) ----------------
+USE_VADER = True
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+vader = SentimentIntensityAnalyzer()
+
+# Uncomment below to use transformers (slower startup)
+# USE_VADER = False
+# try:
+#     from transformers import pipeline
+#     sentiment_pipe = pipeline("sentiment-analysis")
+# except Exception:
+#     from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+#     vader = SentimentIntensityAnalyzer()
+#     USE_VADER = True
 
 
 def analyze_sentiment(headlines):
@@ -182,9 +189,16 @@ def prob_up_from_momentum(features_df: pd.DataFrame) -> pd.Series:
     return prob.fillna(0.5)
 
 
-# ===================== PAGES =====================
+# ===================== PAGES (legacy Jinja2 templates) =====================
+# These will be overridden by React SPA if dist/ exists
 @app.route("/")
 def landing():
+    """Landing page - serves Jinja2 template or React build"""
+    import os.path as ospath
+    dist_folder = os.path.join(app.root_path, 'dist')
+    if ospath.exists(dist_folder):
+        from flask import send_file
+        return send_file(ospath.join(dist_folder, 'index.html'))
     return render_template("home.html")
 
 
@@ -308,9 +322,48 @@ def portfolio_page():
 def research_page():
     return render_template("research.html")
 
+@app.route("/experiment")
+def experiment_page():
+    return render_template("experiment.html")
+
 @app.route("/healthz")
 def healthz():
     return {"ok": True}, 200
+
+# ========== React SPA Assets & Catch-All (for client-side routing) ==========
+@app.route('/assets/<path:filename>')
+def react_assets(filename):
+    """Serve React build assets (JS, CSS, etc.)"""
+    import os.path as ospath
+    from flask import send_from_directory, abort
+    dist_folder = os.path.join(app.root_path, 'dist')
+    if ospath.exists(dist_folder):
+        return send_from_directory(ospath.join(dist_folder, 'assets'), filename)
+    abort(404)
+
+@app.route('/<path:path>')
+def react_catchall(path):
+    """Catch-all for React Router client-side routing"""
+    import os.path as ospath
+    from flask import send_from_directory, send_file, abort
+    dist_folder = os.path.join(app.root_path, 'dist')
+    
+    # If React build exists and this is a React route
+    if ospath.exists(dist_folder):
+        # Check if it's a specific file in dist/
+        if ospath.exists(ospath.join(dist_folder, path)):
+            return send_from_directory(dist_folder, path)
+        
+        # React Router routes (dashboard, ticker-intelligence, etc.)
+        react_routes = ['dashboard', 'ticker-intelligence', 'factor-explorer', 'model-lab',
+                        'experiment-manager', 'signal-diagnostics', 'strategy-backtest',
+                        'portfolio-lab', 'risk-performance', 'sentiment-analyzer', 'settings']
+        
+        if path in react_routes or path.startswith('dashboard') or path.startswith('ticker-intelligence'):
+            return send_file(ospath.join(dist_folder, 'index.html'))
+    
+    # Otherwise 404
+    abort(404)
 
 
 if __name__ == "__main__":

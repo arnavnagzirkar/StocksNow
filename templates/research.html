@@ -102,6 +102,44 @@
   </div>
 </div>
 
+<div class="row g-3 mt-3">
+  <div class="col-lg-6">
+    <div class="soft-card card h-100">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <div class="text-muted small">Factors Preview (Primary Ticker)</div>
+          <div class="form-check form-switch">
+            <input class="form-check-input" id="pf-show-factors" type="checkbox">
+            <label class="form-check-label" for="pf-show-factors">Load</label>
+          </div>
+          <div class="form-check form-switch ms-3">
+            <input class="form-check-input" id="pf-show-pca" type="checkbox">
+            <label class="form-check-label" for="pf-show-pca">PCA</label>
+          </div>
+        </div>
+        <div id="pf-factors" style="max-height:280px; overflow:auto; font-size:12px; font-family:monospace;"></div>
+        <div id="pf-pca" class="mt-2 small" style="max-height:140px; overflow:auto;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="soft-card card h-100">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <div class="text-muted small">Single Ticker Risk Metrics</div>
+          <div class="form-check form-switch">
+            <input class="form-check-input" id="pf-show-risk" type="checkbox">
+            <label class="form-check-label" for="pf-show-risk">Load</label>
+          </div>
+        </div>
+        <div id="pf-risk-metrics" class="small mb-2"></div>
+        <div id="pf-risk-roll-sharpe" style="height:160px;"></div>
+        <div id="pf-risk-roll-vol" style="height:160px;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <div class="row g-3 mt-3">
   <div class="col-lg-6">
