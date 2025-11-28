@@ -48,7 +48,7 @@ const mockHeadlines = [
 ];
 
 export function SentimentAnalyzer() {
-  const [usingFallback, setUsingFallback] = useState(false);
+  const [usingFallback] = useState(false);
 
   return (
     <div className="space-y-6">

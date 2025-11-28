@@ -37,7 +37,7 @@ export function PCAChart() {
             formatter={(value: any) => [`${value.toFixed(1)}%`, 'Explained Variance']}
           />
           <Bar dataKey="variance" radius={[4, 4, 0, 0]}>
-            {data.map((entry, index) => (
+            {data.map((_entry, index) => (
               <Cell key={`cell-${index}`} fill="#14b8a6" opacity={1 - index * 0.1} />
             ))}
           </Bar>

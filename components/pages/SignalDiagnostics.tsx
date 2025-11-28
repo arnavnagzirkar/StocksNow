@@ -1,4 +1,4 @@
-import { TrendingUp, BarChart3 } from 'lucide-react';
+// import { TrendingUp, BarChart3 } from 'lucide-react';
 import { SignalDecayChart } from '../charts/SignalDecayChart';
 import { QuantileReturnsChart } from '../charts/QuantileReturnsChart';
 import { LongShortEquityChart } from '../charts/LongShortEquityChart';

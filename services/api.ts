@@ -1,7 +1,7 @@
 // API Service for QuantSight Research Lab
 // Connect to Flask backend - maps React frontend to existing Flask endpoints
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
+const API_BASE_URL = (import.meta as any).env?.VITE_API_BASE_URL || '';
 
 // Generic fetch wrapper with error handling
 async function fetchAPI<T>(endpoint: string, options: RequestInit = {}): Promise<T> {

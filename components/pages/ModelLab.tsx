@@ -119,7 +119,7 @@ export function ModelLab() {
         <div className="lg:col-span-2">
           <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-6">
             <h2 className="text-gray-900 dark:text-white mb-4">Hyperparameter Grid</h2>
-            <ParamGridEditor params={params} onChange={setParams} />
+            <ParamGridEditor params={params} onChange={(p) => setParams(p as any)} />
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { TrendingUp, DollarSign, Activity, BarChart3 } from 'lucide-react';
+// import { TrendingUp, DollarSign, Activity, BarChart3 } from 'lucide-react';
 import { EquityCurveChart } from '../charts/EquityCurveChart';
 import { FactorTable } from '../FactorTable';
 
@@ -42,7 +42,11 @@ export function TickerIntelligence() {
 
       <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-6">
         <h2 className="text-gray-900 dark:text-white mb-4">Factor Snapshot (Last 20 Days)</h2>
-        <FactorTable />
+        <FactorTable data={[
+          { factor: 'PE Ratio', value: 28.5 },
+          { factor: 'ROE', value: 0.42 },
+          { factor: 'Debt/Equity', value: 1.2 }
+        ]} />
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ import { Card } from '../ui/card';
 import { Alert, AlertDescription } from '../ui/alert';
 import { Skeleton } from '../ui/skeleton';
 import { toast } from 'sonner';
-import { useDashboard, useModels, useSignals } from '../../hooks/useAPI';
+import { useDashboard, useModels } from '../../hooks/useAPI';
 
 export function APIIntegrationExample() {
   // Example 1: Using hooks for automatic data fetching
@@ -70,15 +70,15 @@ export function APIIntegrationExample() {
           </Alert>
         )}
 
-        {overview.data && (
+        {(overview.data ? (
           <div className="space-y-3">
-            <MetricRow label="Portfolio Value" value={`$${overview.data.portfolioValue?.toLocaleString()}`} />
-            <MetricRow label="Total Return" value={`${overview.data.totalReturn}%`} />
-            <MetricRow label="Sharpe Ratio" value={overview.data.sharpeRatio?.toFixed(2)} />
-            <MetricRow label="Max Drawdown" value={`${overview.data.maxDrawdown}%`} />
-            <MetricRow label="Active Models" value={overview.data.activeModels} />
+            <MetricRow label="Portfolio Value" value={`$${(overview.data as any).portfolioValue?.toLocaleString()}`} />
+            <MetricRow label="Total Return" value={`${(overview.data as any).totalReturn}%`} />
+            <MetricRow label="Sharpe Ratio" value={(overview.data as any).sharpeRatio?.toFixed(2)} />
+            <MetricRow label="Max Drawdown" value={`${(overview.data as any).maxDrawdown}%`} />
+            <MetricRow label="Active Models" value={(overview.data as any).activeModels} />
           </div>
-        )}
+        ) : null)}
       </Card>
 
       {/* Example 2: Display signals data */}
@@ -91,9 +91,9 @@ export function APIIntegrationExample() {
           <p className="text-red-600 text-sm">Error loading signals: {signals.error.message}</p>
         )}
 
-        {signals.data && signals.data.length > 0 ? (
+        {signals.data && (signals.data as any).length > 0 ? (
           <div className="space-y-2">
-            {signals.data.map((signal: any, idx: number) => (
+            {(signals.data as any).map((signal: any, idx: number) => (
               <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
                 <div className="flex items-center gap-3">
                   <span className="text-gray-900 dark:text-white">{signal.ticker}</span>
@@ -129,14 +129,14 @@ export function APIIntegrationExample() {
           </Button>
         </div>
 
-        {equityCurve.data && (
+        {(equityCurve.data ? (
           <div className="space-y-2">
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              Data points: {equityCurve.data.dates?.length || 0}
+              Data points: {(equityCurve.data as any).dates?.length || 0}
             </p>
             {/* Render your chart here with equityCurve.data */}
           </div>
-        )}
+        ) : null)}
       </Card>
 
       {/* Example 4: Using multiple hooks */}
@@ -262,13 +262,13 @@ function ModelTrainingExample() {
           {train.loading ? 'Training...' : 'Train Model'}
         </Button>
 
-        {train.data && (
+        {(train.data ? (
           <Alert>
             <AlertDescription>
-              Model training started! Model ID: {train.data.modelId}
+              Model training started! Model ID: {(train.data as any).modelId}
             </AlertDescription>
           </Alert>
-        )}
+        ) : null)}
 
         {train.error && (
           <Alert variant="destructive">

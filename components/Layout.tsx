@@ -1,5 +1,9 @@
 import { Link, useLocation } from 'react-router-dom';
-import { cn } from '../utils/cn';
+
+function cn(...classes: Array<string | false | null | undefined>) {
+  return classes.filter(Boolean).join(' ');
+}
+
 import {
   LayoutDashboard,
   TrendingUp,

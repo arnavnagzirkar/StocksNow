@@ -80,7 +80,11 @@ export function FactorExplorer() {
             <span className="text-sm text-gray-600 dark:text-gray-400">24 columns</span>
           </div>
         </div>
-        <FactorTable />
+        <FactorTable data={[
+          { factor: 'Momentum', value: 0.65, zscore: 1.2 },
+          { factor: 'Value', value: -0.32, zscore: -0.8 },
+          { factor: 'Quality', value: 0.45, zscore: 0.9 }
+        ]} />
       </div>
 
       <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-6">

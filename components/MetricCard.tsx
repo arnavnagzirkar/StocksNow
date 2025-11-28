@@ -4,13 +4,16 @@ import { cn } from '../utils/cn';
 interface MetricCardProps {
   title: string;
   value: string | number;
-  change?: number;
+  change?: number | string;
   changeLabel?: string;
+  changeType?: string;
+  subtitle?: string;
+  icon?: any;
   className?: string;
 }
 
 export function MetricCard({ title, value, change, changeLabel, className }: MetricCardProps) {
-  const isPositive = change !== undefined && change >= 0;
+  const isPositive = change !== undefined && (typeof change === 'number' ? change >= 0 : !change.toString().startsWith('-'));
 
   return (
     <Card className={cn('', className)}>
@@ -22,7 +25,7 @@ export function MetricCard({ title, value, change, changeLabel, className }: Met
         {change !== undefined && (
           <p className="text-xs text-muted-foreground">
             <span className={cn(isPositive ? 'text-green-600' : 'text-red-600')}>
-              {isPositive ? '↑' : '↓'} {Math.abs(change).toFixed(2)}%
+              {isPositive ? '↑' : '↓'} {typeof change === 'number' ? Math.abs(change).toFixed(2) : change}%
             </span>
             {changeLabel && ` ${changeLabel}`}
           </p>

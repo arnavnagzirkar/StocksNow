@@ -1,4 +1,4 @@
-import { TrendingUp, TrendingDown, Activity, DollarSign, BarChart3, Zap } from 'lucide-react';
+import { TrendingUp, TrendingDown, Activity, DollarSign } from 'lucide-react';
 import { MetricCard } from '../MetricCard';
 import { EquityCurveChart } from '../charts/EquityCurveChart';
 import { PerformanceTable } from '../PerformanceTable';
@@ -88,7 +88,11 @@ export function Dashboard() {
 
       <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-6">
         <h2 className="text-gray-900 dark:text-white mb-4">Top Holdings Performance</h2>
-        <PerformanceTable />
+        <PerformanceTable data={[
+          { name: 'AAPL', returns: 12.4, sharpe: 1.8, maxDrawdown: -8.2 },
+          { name: 'MSFT', returns: 15.7, sharpe: 2.1, maxDrawdown: -6.5 },
+          { name: 'GOOGL', returns: 8.9, sharpe: 1.5, maxDrawdown: -11.3 }
+        ]} />
       </div>
     </div>
   );
